@@ -1,0 +1,201 @@
+{% extends "app/base.html" %}
+
+
+{% block content %}
+  
+
+
+<section class="section-content padding-y bg">
+<div class="container">
+
+<!-- ============================ COMPONENT 1 ================================= -->
+<div class="card">
+	<div class="row no-gutters">
+		<aside class="col-md-6">
+<article class="gallery-wrap"> 
+	<div class="img-big-wrap mainImage" >
+	<center><img src="{{object.image.url}}"></center>
+	</div> <!-- img-big-wrap.// -->
+	
+</article> <!-- gallery-wrap .end// -->
+        <ul class="thumb">
+			<li>
+				{% for m in product_galary  %}
+				<a href="{{object.image.url}}"target='mainImage'><img src="{{object.image.url}}" alt="Product Image"></a>
+				<a href="{{m.image.url}}"target='mainImage'><img src="{{m.image.url}}" alt="Product Image"></a>
+				{% endfor %}
+				
+			</li>
+		</ul>
+		</aside>
+		<main class="col-md-6 border-left">
+			<form action="{%url 'add-cart' product.id%}" method="GET">
+<article class="content-body">
+
+<h2 class="title">{{object.product_name}}</h2>
+<div class="rating-star">
+	<span>
+	
+		<i class="fa fa-star{%if object.avarageReview < 0.5%}-o{%elif object.avarageReview >= 0.5 and object.avarageReview < 1 %}-half-o{%endif%}" aria-hidden="true"></i>
+		<i class="fa fa-star{%if object.avarageReview < 1.5%}-o{%elif object.avarageReview >= 1.5 and object.avarageReview < 2 %}-half-o{%endif%}" aria-hidden="true"></i>
+		<i class="fa fa-star{%if object.avarageReview < 2.5%}-o{%elif object.avarageReview >= 2.5 and object.avarageReview < 3 %}-half-o{%endif%}" aria-hidden="true"></i>
+		<i class="fa fa-star{%if object.avarageReview < 3.5%}-o{%elif object.avarageReview >= 3.5 and object.avarageReview < 4 %}-half-o{%endif%}" aria-hidden="true"></i>
+		<i class="fa fa-star{%if object.avarageReview < 4.5%}-o{%elif object.avarageReview >= 4.5 and object.avarageReview < 5 %}-half-o{%endif%}" aria-hidden="true"></i>
+		<span>({{object.countReview}}) rewiews</span>
+	</span>
+</div>
+
+<div class="mb-3"> 
+	<var class="price h4">${{object.price}}</var> 
+</div> 
+
+<p>{{object.description}}.</p>
+
+
+<hr>
+	<div class="row">
+		<div class="item-option-select">
+			<h6>Choose Color</h6>
+			 <select name="color" id="" class="form-control">
+
+				<option value="volvo">Black</option>
+				<option value="saab">Red</option>
+				<option value="mercedes">Blue</option>
+			
+				
+				 
+				
+			 </select>
+		</div>
+	</div> <!-- row.// -->
+	<div class="row">
+		<div class="item-option-select">
+			<h6>Select Size</h6>
+			<select name="size" id="" class="form-control">
+				<option value="small">Small</option>
+				<option value="medium">Medium</option>
+				<option value="large">Large</option>
+
+			</select>
+		</div>
+	</div> <!-- row.// -->
+	<hr>
+	<button type="submit" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </button>
+</article> <!-- product-info-aside .// -->
+</form>
+		</main> <!-- col.// -->
+	</div> <!-- row.// -->
+</div> <!-- card.// -->
+<!-- ============================ COMPONENT 1 END .// ================================= -->
+
+<br>
+
+<div class="row">
+			<div class="col-md-9">
+
+	<header class="section-heading">
+		<h3>Customer Reviews </h3>  
+		<div class="rating-star">
+			<span>
+			
+				<i class="fa fa-star{%if object.avarageReview < 0.5%}-o{%elif object.avarageReview >= 0.5 and object.avarageReview < 1 %}-half-o{%endif%}" aria-hidden="true"></i>
+				<i class="fa fa-star{%if object.avarageReview < 1.5%}-o{%elif object.avarageReview >= 1.5 and object.avarageReview < 2 %}-half-o{%endif%}" aria-hidden="true"></i>
+				<i class="fa fa-star{%if object.avarageReview < 2.5%}-o{%elif object.avarageReview >= 2.5 and object.avarageReview < 3 %}-half-o{%endif%}" aria-hidden="true"></i>
+				<i class="fa fa-star{%if object.avarageReview < 3.5%}-o{%elif object.avarageReview >= 3.5 and object.avarageReview < 4 %}-half-o{%endif%}" aria-hidden="true"></i>
+				<i class="fa fa-star{%if object.avarageReview < 4.5%}-o{%elif object.avarageReview >= 4.5 and object.avarageReview < 5 %}-half-o{%endif%}" aria-hidden="true"></i>
+				<span>({{object.countReview}}) rewiews</span>
+			</span>
+		</div>
+		
+		
+	</header>
+	
+	<form action="{%url 'submit_reviews' object.id%}" method="POST">
+		{% csrf_token %}
+		<h5>Write your Review</h5>
+		<div>
+			<label>How Do You Rate this Product</label>
+			<br>
+			<div class="rate">
+				<input type="radio" name="rating" id="rating10" value="5" required> <label for="rating10" title="5"></label>
+				<input type="radio" name="rating" id="rating9" value="4.5" required> <label for="rating9" title="4.5" class="half"></label>
+				<input type="radio" name="rating" id="rating8" value="4" required> <label for="rating8" title="4"></label>
+				<input type="radio" name="rating" id="rating7" value="3.5" required><label for="rating7" title="3.5" class="half"></label>
+				<input type="radio" name="rating" id="rating6" value="3" required><label for="rating6" title="3"></label>
+				<input type="radio" name="rating" id="rating5" value="2.5" required><label for="rating5" title="2.5" class="half"></label>
+				<input type="radio" name="rating" id="rating4" value="2" required><label for="rating4" title="2"></label>
+				<input type="radio" name="rating" id="rating3" value="1.5" required><label for="rating3" title="1.5" class="half"></label>
+				<input type="radio" name="rating" id="rating2" value="1" required><label for="rating2" title="1"></label>
+				<input type="radio" name="rating" id="rating1" value="0.5" required><label for="rating1" title="0.5" class="half"></label>
+			</div>
+			Review Title 
+			<input type="text" class="form-control" name='subject'>
+			<br>
+			Review:
+			<textarea name="review" id=""  rows="4" class="form-control"></textarea>
+
+			<br>
+			{% if user.is_authenticated %}
+			{% if orderproduct %}
+			 <button type="submit" value="Submit Review" class="btn btn-primary">Submit Review</button>
+			{%else%}
+			<p>User must be purchase the product   to make a review  </p>
+			  
+			{% endif %}
+
+
+			{%else%}
+			  <p>User must be logged in to make a review  <span><a href="{%url 'login'%}">login</a></span></p>
+			{% endif %}
+			
+			
+		</div>
+		{% include "accounts/alert.html" %}
+	</form>
+	<br>
+	
+    
+	  
+{% for review in reviews  %}
+  
+	
+	
+	<article class="box mb-3">
+		<div class="icontext w-100">
+			
+			<div class="text">
+				<span class="date text-muted float-md-right">{{review.updated_at}}</span>  
+				<h6 class="mb-1">{{review.user.full_name}}</h6>
+
+				<div class="rating-star">
+					<span>
+						<i class="fa fa-star{%if review.rating == 0.5%}-half-o{%elif review.rating < 1%}-o{%endif%}" aria-hidden="true"></i>
+						<i class="fa fa-star{%if review.rating == 1.5%}-half-o{%elif review.rating < 2%}-o{%endif%}" aria-hidden="true"></i>
+						<i class="fa fa-star{%if review.rating == 2.5%}-half-o{%elif review.rating < 3%}-o{%endif%}" aria-hidden="true"></i>
+						<i class="fa fa-star{%if review.rating == 3.5%}-half-o{%elif review.rating < 4%}-o{%endif%}" aria-hidden="true"></i>
+						<i class="fa fa-star{%if review.rating == 4.5%}-half-o{%elif review.rating < 5%}-o{%endif%}" aria-hidden="true"></i>
+					</span>
+				</div>
+				
+			</div>
+		</div> <!-- icontext.// -->
+		<div class="mt-3">
+			<h6>{{review.subject}}</h6>
+			<p>
+				{{review.review}}
+			</p>	
+		</div>
+	</article>
+{% endfor %}
+
+	
+
+	</div> <!-- col.// -->
+</div> <!-- row.// -->
+
+
+</div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+
+{% endblock content %}
