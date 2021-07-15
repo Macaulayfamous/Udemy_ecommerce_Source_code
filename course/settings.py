@@ -5,6 +5,7 @@ import os
 import smtplib
 
 from email.mime.text import MIMEText
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -154,3 +155,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
     
 }
+
+django_heroku.settings(locals())
