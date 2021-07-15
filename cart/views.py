@@ -101,6 +101,8 @@ def remove_cart_item(request, product_id):
         product = get_object_or_404(Product, id=product_id)
         cart_item = CartItem.objects.get(product=product, cart=cart)
         cart_item.delete()  
+        
+        return redirect('cart')
 
 def cart(request, total=0, quantity=0,cart_items=None):
     try:
