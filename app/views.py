@@ -17,7 +17,7 @@ def home(request):
         'products' : products,
         
     }
-    return render(request, 'app/home.html',context)
+    return render(request, 'app/home.html',{'reviews':reviews},context)
 
 
 
