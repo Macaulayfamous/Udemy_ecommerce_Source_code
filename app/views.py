@@ -7,7 +7,7 @@ from orders.models import OrderProduct
 # Create your views here.
 
 def home(request):
-    reviews = ReviewRating()
+    reviews = ReviewRating
     products = Product.objects.all().filter(is_available=True)
     for product in products:
         
